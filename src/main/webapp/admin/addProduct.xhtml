@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="content">
+                 <div jsf:id="id1" jsf:rendered="#{not empty facesContext.messageList}" class ="alert alert-warning alert-dismissible fade show" role="alert">
+                                <h:messages  showDetail="false" showSummary="true" errorClass="">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </h:messages>
+                            </div>
+
+
+                            <h:form id="form1" >
+                                <div class="form-group">
+                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Item No" value="#{productController.no}" ></h:inputText>
+                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Item Name" value="#{productController.name}"></h:inputText>
+                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Item Class" value="#{productController.category}" ></h:inputText>
+                                    <h:inputText p:required="true" styleClass="form-control" p:id="datepicker" p:placeholder="Date" value="#{productController.date}">
+                                   
+                                    </h:inputText>
+                                    <h:outputScript>$( function() {
+    $( "#datepicker" ).datepicker();
+  } );</h:outputScript>
+                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Created By" value="#{productController.createdBy}" p:disabled="" ></h:inputText>
+                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Uses" value="#{productController.uses}"></h:inputText>
+                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="UOM" value="#{productController.uom}" ></h:inputText>
+                                    <h:inputText p:required="true" p:type="number" styleClass="form-control" p:placeholder="Opening Stock" value="#{productController.openinStock}"></h:inputText>
+
+
+                                    <h:commandButton value="Create" styleClass="btn-primary btn-sm form-control" action="#{productController.createProduct()}"/>
+                                    <!--<span class="small">Don't have an account?<a href="#signup" data-toggle="collapse" >Signup</a></span>-->
+                                </div>
+                            </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

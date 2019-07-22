@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <h:head>
+        <title>BU Power</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <title>BuPower Inventory</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <h:outputStylesheet library="css" name="styles.css"  /> 
+        <h:outputScript library="js" name="myJs.js"></h:outputScript>
+    </h:head>
+    <h:body>
+        <section>
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center"><h:graphicImage value="/resources/img/bupowerlogo.png" styleClass="img-fluid img-thumbnail"/><h1>BU Power Limited</h1></div>
+                    
+            </div>
+
+
+
+            <div class="row" style="padding-top:2%">
+                <div class="col-md-9 text-center" style="padding: 2%" >
+                    <div class="card">
+                        
+                        <div class="card-body">
+                            <ui:insert name="content">
+                                
+                            </ui:insert>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3" style="padding: 2%">
+                 
+
+                    <div class="card in" id="login">
+                        <h:form styleClass="text-center">
+            <span><h:commandLink value="Logout" action="#{validateUser.logout()}"/></span>
+            </h:form>
+                        <div class="card-body">
+                             <h:form >
+                                <div class="form-group">
+                                    <h:commandButton value="Dashboard" styleClass="form-control badge-info btn-lg"/>
+                                    <h:commandButton value="Reports" styleClass="form-control btn-dark btn-lg"/>
+                                    <h:commandButton value="Settings" styleClass="form-control btn-danger btn-lg"/>
+                                    <h:commandButton value="Import" styleClass="form-control btn-success btn-lg"/>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle  form-control btn-lg" type="button" id="dropdownmenubutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Inventory
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a href="#" class="dropdown-item">Current Stock</a>
+                                             <a class="dropdown-item">Adjust Stock</a>
+                                              <a class="dropdown-item">Reorder Stock</a>
+                                              
+                                        </div>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+            <div class="footer footer-copyright text-center py-3 font-small">
+                &copy; 2019 All rights reserved:<a href="https://codershift.com">Codershift.com</a>
+            </div>
+
+
+
+        </section>
+
+
+    </h:body>
+</html>
+

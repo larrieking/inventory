@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="content">
+                <div jsf:id="id1" jsf:rendered="#{not empty facesContext.messageList}" class ="alert alert-warning alert-dismissible fade show" role="alert">
+                                <h:messages  showDetail="false" showSummary="true" errorClass="">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </h:messages>
+                            </div>
+
+
+                            <h:form id="form1" >
+                                <div class="form-group">
+                                    <h:inputText p:required="true"  styleClass="form-control" p:placeholder="username" value="#{adminController.username}" ></h:inputText>
+                                    <h:inputSecret p:required="true"  styleClass="form-control" p:placeholder="Password" value="#{adminController.password}"></h:inputSecret>
+                                    <h:inputText p:required="true"  styleClass="form-control" p:placeholder="firstname" value="#{adminController.firstName}" ></h:inputText>
+                                    <h:inputText p:required="true"  styleClass="form-control" p:placeholder="lastname" value="#{adminController.lastName}"></h:inputText>
+                                    <h:selectOneMenu p:required="true"  styleClass="form-control" value="#{adminController.role}">
+                                        <f:selectItem itemValue="null" itemLabel="---------Select Group---------"/>
+                                        <f:selectItem itemValue="user" itemLabel="User"/>
+                                        <f:selectItem itemValue="admin" itemLabel="Admin"/>
+                                    </h:selectOneMenu>
+
+
+                                    <h:commandButton value="Create" styleClass="btn-primary btn-sm form-control" action="#{adminController.createAdmin()}"/>
+                                    <!--<span class="small">Don't have an account?<a href="#signup" data-toggle="collapse" >Signup</a></span>-->
+                                </div>
+                            </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+

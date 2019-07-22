@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="content">
+                <div class="table-responsive">
+                    <h:dataTable styleClass="table table-striped table-bordered" id="example" value="#{adjustStock.movementHistory}" var="product" headerClass="thead-dark">
+                    <h:column>
+                        <f:facet name="header">
+                            Item
+                        </f:facet>
+                        <h:outputText value="#{product.itemname}"/>
+
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Adjusted By
+                        </f:facet>
+                        <h:outputText value="#{product.adjustedby}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            Adjustment Type
+                        </f:facet>
+                        <h:outputText value="#{product.adjustmenttype}"/>
+
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Date
+                        </f:facet>
+                        <h:outputText value="#{product.date}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            Reason
+                        </f:facet>
+                        <h:outputText value="#{product.reason}"/>
+
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Quantity
+                        </f:facet>
+                        <h:outputText value="#{product.newquantity}"/>
+
+                    </h:column>
+
+                    
+                </h:dataTable>
+                </div>
+                <h:outputScript target="head">
+                    $(document).ready(function(){
+                    $('#example').DataTable();
+                    });
+                </h:outputScript>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
