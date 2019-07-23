@@ -26,8 +26,8 @@
         <auth-method>FORM</auth-method>
         <realm-name>inventoryRealm</realm-name>
         <form-login-config>
-            <form-login-page>/index.xhtml</form-login-page>
-            <form-error-page>/error.xhtml</form-error-page>
+            <form-login-page>/faces/index.xhtml</form-login-page>
+            <form-error-page>/faces/error.xhtml</form-error-page>
         </form-login-config>
         
     </login-config>

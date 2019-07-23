@@ -11,26 +11,29 @@
         <ui:composition template="./adminTemplate.xhtml">
 
             <ui:define name="content">
-                <h:form>
+                <h:form >
                     <div class="form-group">
                         <h:selectOneMenu p:required="true" styleClass="form-control" value="#{adjustStock.stockAdjustment.itemname}">
                             <f:selectItems value="#{adjustStock.productList}" var="product" itemValue="#{product.itemName}" itemLabel="#{product.itemName}"/>
                         </h:selectOneMenu>
-                         <h:selectOneMenu p:required="true" styleClass="form-control" value="#{adjustStock.stockAdjustment.adjustmenttype}">
-                             <f:selectItem itemValue="#{null}" itemLabel=" "/>
-                             <f:selectItem itemValue="Negative" itemLabel="Negative"/>
-                             <f:selectItem itemValue="Positive" itemLabel="Positive"/>
-                             
+                        <h:selectOneMenu p:required="true" styleClass="form-control" value="#{adjustStock.stockAdjustment.adjustmenttype}">
+                            <f:selectItem itemValue="#{null}" itemLabel=" "/>
+                            <f:selectItem itemValue="Negative" itemLabel="Negative"/>
+                            <f:selectItem itemValue="Positive" itemLabel="Positive"/>
+
                         </h:selectOneMenu>
-                       
+
                         <h:inputText p:required="true" p:type ="number" p:placeholder ="Quantity" value="#{adjustStock.stockAdjustment.newquantity}" styleClass="form-control" />
                         <h:inputText p:required="true" p:placeholder ="Reason" value="#{adjustStock.stockAdjustment.reason}" styleClass="form-control"/>
-                        <h:commandButton value="Post Adjustment" styleClass="form-control btn-primary btn-sm" action="#{adjustStock.createStokckAdjustment()}"/>
-                        
-                                         
+                        <h:commandButton value="Post Adjustment" styleClass="form-control btn-primary btn-sm" action="#{adjustStock.createStokckAdjustment()}">
+
+
+                        </h:commandButton>                
                     </div>
-                    
+
                 </h:form>
+
+
             </ui:define>
 
         </ui:composition>

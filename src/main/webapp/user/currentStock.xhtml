@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./usertemplate.xhtml">
+
+            <ui:define name="content">
+                 <h:form>
+                     <div class="table-responsive">
+                     <h:dataTable styleClass="table table-hover" value="#{productController.allStock}" var="product" headerClass="thead-dark">
+                                <h:column>
+                                    <f:facet name="header">
+                                        Item
+                                    </f:facet>
+                                    <h:outputText value="#{product.itemName}"/>
+                            
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                       Unit of Measure
+                                    </f:facet>
+                                    <h:outputText value="#{product.uom}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        Category
+                                    </f:facet>
+                                    <h:outputText value="#{product.itemClass}"/>
+                            
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                       Uses
+                                    </f:facet>
+                                    <h:outputText value="#{product.uses}"/>
+                                </h:column>
+                                
+                                <h:column>
+                                    <f:facet name="header">
+                                        Available Stock
+                                    </f:facet>
+                                    <h:outputText value="#{product.openingStock}"/>
+                            
+                                </h:column>
+                                
+                                
+                                
+                            </h:dataTable>
+                     </div>
+                            </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

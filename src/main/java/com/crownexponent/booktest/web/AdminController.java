@@ -118,6 +118,7 @@ public class AdminController implements Serializable {
         list.add(username);
        // new SendMail().sendMail(list, "Account Creation At BUPOWER", "Pls Click here your acct have bn created...", null);
         new Message().addSuccessMessage("Success");
+        reset();
         }
         catch(ConstraintViolationException  e){
             new Message().addFailureMessage(e.getMessage());
@@ -146,7 +147,14 @@ public class AdminController implements Serializable {
         this.role = role;
     }
     
-    
+    public void reset(){
+        setUsername("");
+        setPassword("");
+        setFirstName("");
+        setLastName("");
+        
+                
+    }
     
     
     

@@ -52,6 +52,7 @@ public class ProductController implements Serializable {
          product.setItemNo(getNo());
          product.setCreatedBy(getCreatedBy());
          getFacade().create(product);
+         reset();
          return null;
          
      }
@@ -199,8 +200,15 @@ public class ProductController implements Serializable {
     }
     
     
-    public int getNoOfItems(){
-        return getFacade().count();
+    public void reset(){
+        setNo("");
+        setName("");
+        setCategory("");
+        setCreatedBy("");
+        setDate("");
+        setUses("");
+        setUom("");
     }
+    
     
 }

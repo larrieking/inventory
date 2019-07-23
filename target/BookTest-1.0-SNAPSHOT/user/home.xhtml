@@ -7,26 +7,52 @@
    
     <body>
          <ui:composition template="./usertemplate.xhtml">
-        <ui:define name="content">
-             <table class="table table-bordered">
-                                <tr>
-                                    <td>No of Items</td>
-                                    <td>200</td>
-                                </tr>
-                                <tr>
-                                    <td>No of Items</td>
-                                    <td>200</td>
-                                </tr>
-                                <tr>
-                                    <td>No of Items</td>
-                                    <td>200</td>
-                                </tr>
-                                <tr>
-                                    <td>No of Items</td>
-                                    <td>200</td>
-                                </tr>
-                            </table>
-        </ui:define>
+       <ui:define name="content">
+                <div class="mx-auto" style="width: 400px;">
+                    
+                <div class="card-deck">
+                    <div class="card mb-3" style="max-width: 10em">
+                    <div class="card-body bg-success text-white">
+                        <h1>#{dashboard.noOfItems}</h1>
+                        
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span>No Of Items</span>
+                    </div>
+                </div>
+                <div class="card mb-3" style="max-width: 10em">
+                    <div class="card-body bg-warning text-white">
+                        <h1>#{dashboard.underStocked.size()}</h1>
+                        
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span>Under Stocked</span>
+                    </div>
+                </div>
+                </div>
+                  <div class="card-deck">
+                    <div class="card mb-3" style="max-width: 10em">
+                    <div class="card-body bg-info text-white">
+                        <h1>#{dashboard.overStocked.size()}</h1>
+                        
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span>OverStocked</span>
+                    </div>
+                </div>
+                <div class="card mb-3" style="max-width: 10em">
+                    <div class="card-body bg-secondary text-white">
+                        <h1>#{dashboard.oeptimal.size()}</h1>
+                        
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <span>Optimal Level</span>
+                    </div>
+                </div>
+                </div>
+                </div>
+               
+            </ui:define>
 
          </ui:composition>
     </body>

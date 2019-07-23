@@ -31,7 +31,7 @@
         <h:outputStylesheet library="css" name="styles.css"  />     
     </h:head>
     
-    <h:body>
+    <h:body rendered="#{validateUser.admin}">
          <section>
             <div class="card bg-primary text-white">
                 <div class="card-body text-center"><h:graphicImage value="/resources/img/bupowerlogo.png" styleClass="img-fluid img-thumbnail"/><h1>BU Power Limited</h1></div>
@@ -85,7 +85,7 @@
                                               
                                         </div>
                                     </div>
-                                    <h:commandButton value="Settings" styleClass="form-control btn-danger btn-lg"/>
+                                    <h:commandButton value="Settings" styleClass="form-control btn-danger btn-lg" action="settings.xhtml"/>
                                    
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle  form-control btn-lg" type="button" id="dropdownmenubutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

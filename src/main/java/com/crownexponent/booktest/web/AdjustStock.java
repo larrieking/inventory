@@ -8,6 +8,7 @@ package com.crownexponent.booktest.web;
 import com.crownexponent.booktest.entity.NewProduct;
 import com.crownexponent.booktest.entity.StockAdjustment;
 import com.crownexponent.booktest.service.StockAdjustmentFacade;
+import com.crownexponent.booktest.util.Message;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -80,6 +82,7 @@ public class AdjustStock implements Serializable {
         }
 
         getFacade().create(stockAdjustment);
+        
         for (NewProduct editStock : productList) {
             if (editStock.getItemName().equalsIgnoreCase(getStockAdjustment().getItemname())) {
 
@@ -88,6 +91,7 @@ public class AdjustStock implements Serializable {
                 getProduct().editStockQuantity(editStock);
             }
         }
+       new Message().addSuccessMessage("Adjustment posted succesfully");
         return "itemMovement";
     }
 
@@ -103,5 +107,7 @@ public class AdjustStock implements Serializable {
         movementHistory = getFacade().findAll();
         return movementHistory;
     }
+    
+    
 
 }
