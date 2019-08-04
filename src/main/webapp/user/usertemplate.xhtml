@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html  xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
-    <h:head>
-        <title>BU Power</title>
+      template ="/adminTemplate.html">
+ 
+     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <title>BuPower Inventory</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
@@ -18,55 +18,75 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-        <h:outputStylesheet library="css" name="styles.css"  /> 
-        <h:outputScript library="js" name="myJs.js"></h:outputScript>
+        
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+  <link rel="stylesheet" href="/resources/demos/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"/>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"/>
+  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"/>
+  
+        <h:outputStylesheet library="css" name="styles.css"  />     
     </h:head>
+    
     <h:body>
-        <section>
+         <section>
             <div class="card bg-primary text-white">
                 <div class="card-body text-center"><h:graphicImage value="/resources/img/bupowerlogo.png" styleClass="img-fluid img-thumbnail"/><h1>BU Power Limited</h1></div>
-                    
+
             </div>
-
-
-
+            
+        </section>
+        <section>
+        
             <div class="row" style="padding-top:2%">
-                <div class="col-md-9 text-center" style="padding: 2%" >
+                <div class="col-md-9 col-lg-9 text-center">
                     <div class="card">
-                        
                         <div class="card-body">
                             <ui:insert name="content">
                                 
                             </ui:insert>
                         </div>
                     </div>
-
                 </div>
-
-                <div class="col-md-3" style="padding: 2%">
-                 
-
-                    <div class="card in" id="login">
+       
+        
+            
+              <div class="col-md-3 col-lg-3" >
+                    <div class="card">
                         <h:form styleClass="text-center">
             <span><h:commandLink value="Logout" action="#{validateUser.logout()}"/></span>
             </h:form>
                         <div class="card-body">
-                             <h:form >
+                           
+                            <h:form >
                                 <div class="form-group">
-                                    <h:commandButton value="Dashboard" styleClass="form-control badge-info btn-lg"/>
-                                    <h:commandButton value="Reports" styleClass="form-control btn-dark btn-lg"/>
+                                    
+                                    <h:commandButton value="Dashboard" styleClass="form-control badge-info btn-lg" action="home.xhtml"/>
+                                   
+                                    <div class="dropdown">
+                                        <button class="btn btn-dark dropdown-toggle  form-control btn-lg" type="button" id="dropdownmenubutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                           Reports
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a href="currentStock.xhtml" class="dropdown-item">Current Stock</a>
+                                            <a href="itemMovement.xhtml" class="dropdown-item">Movement History</a>
+                                              
+                                        </div>
+                                    </div>
                                     <h:commandButton value="Settings" styleClass="form-control btn-danger btn-lg"/>
-                                    <h:commandButton value="Import" styleClass="form-control btn-success btn-lg"/>
+                                   
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle  form-control btn-lg" type="button" id="dropdownmenubutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Inventory
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a href="#" class="dropdown-item">Current Stock</a>
-                                             <a class="dropdown-item">Adjust Stock</a>
-                                              <a class="dropdown-item">Reorder Stock</a>
-                                              
+                                            <a href="currentStock.xhtml" class="dropdown-item">Current Stock</a>
+                                             <a href="adjustStock.xhtml" class="dropdown-item">Adjust Stock</a>
+                                             
+                                              <a href="addProduct.xhtml" class="dropdown-item disabled">New Product</a>
                                         </div>
                                     </div>
                                 </div>
@@ -75,20 +95,13 @@
                     </div>
 
                 </div>
-
-
-
             </div>
-
-            <div class="footer footer-copyright text-center py-3 font-small">
+        </section>
+        
+        
+         <div class="footer footer-copyright text-center py-3 font-small">
                 &copy; 2019 All rights reserved:<a href="https://codershift.com">Codershift.com</a>
             </div>
-
-
-
-        </section>
-
-
     </h:body>
 </html>
 
