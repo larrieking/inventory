@@ -5,8 +5,11 @@
  */
 package com.crownexponent.booktest.web;
 
+import com.crownexponent.booktest.entity.Account;
 import com.crownexponent.booktest.entity.NewProduct;
 import com.crownexponent.booktest.entity.StockAdjustment;
+import com.crownexponent.booktest.service.AccountFacade;
+import com.crownexponent.booktest.service.Mail;
 import com.crownexponent.booktest.service.NewProductFacade;
 import com.crownexponent.booktest.service.StockAdjustmentFacade;
 import com.crownexponent.booktest.util.Message;
@@ -20,8 +23,11 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+
 /**
  *
  * @author ISSAH OJIVO
@@ -33,8 +39,8 @@ public class ProductController {
     /**
      * Creates a new instance of ProductController
      */
-   private String no, name, category, createdBy, date, uses, uom;
-   private Integer understock, overstock, optimal;
+    private String no, name, category, createdBy, date, uses, uom;
+    private Integer understock, overstock, optimal;
 
     public Integer getUnderstock() {
         return understock;
@@ -59,62 +65,122 @@ public class ProductController {
     public void setOptimal(Integer optimal) {
         this.optimal = optimal;
     }
-   private Integer openinStock;
+    private Integer openinStock;
 
-    
     @EJB
-    private NewProductFacade facade ;
+    private NewProductFacade facade;
     @EJB
     private StockAdjustmentFacade stockFacade;
     @Inject
     private ValidateUser authenticatedUser;
-    
+    @EJB
+    private AccountFacade accountFacade;
+    @EJB
+    private Mail mailSession;
+
     public ProductController() {
     }
-    
-     public NewProductFacade getFacade() {
+
+    public NewProductFacade getFacade() {
         return facade;
     }
-     
-     public String  createProduct(){
-         try{
-         NewProduct product = new NewProduct();
-         product.setItemName(getName());
-         product.setItemClass(getCategory());
-         product.setDate(getDate());
-         product.setOpeningStock(getOpeninStock());
-         product.setUom(getUom());
-         product.setUses(getUses());
-         product.setItemNo(getNo());
-         product.setCreatedBy(getCreatedBy());
-         product.setOptimal(getOptimal());
-         product.setUnderstock(getUnderstock());
-         product.setOverstock(getOverstock());
-         getFacade().create(product);
-         StockAdjustment stock = new StockAdjustment();
-         stock.setAdjustedby(getCreatedBy());
-         stock.setAdjustmenttype("Incoming");
-         stock.setDate(LocalDate.now().toString());
-         stock.setItemname(getName());
-         stock.setReason("Opening Stock");
-         stock.setNewquantity(getOpeninStock());
-         
-         getStockFacade().create(stock);
-         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("success", "Item "+getName().toUpperCase()+" Created Successfully!!!");
-         }
-         
-         catch(Exception e){
-           FacesContext.getCurrentInstance().getExternalContext().getFlash().put("failure", e.getMessage());
-         }
-         return "addProduct?faces-redirect=true";
-       
-         
-     }
+
+    public String createProduct() {
+        try {
+            NewProduct product = new NewProduct();
+            product.setItemName(getName());
+            product.setItemClass(getCategory());
+            product.setDate(getDate());
+            product.setOpeningStock(getOpeninStock());
+            product.setUom(getUom());
+            product.setUses(getUses());
+            product.setItemNo(getNo());
+            product.setCreatedBy(getCreatedBy());
+            product.setOptimal(getOptimal());
+            product.setUnderstock(getUnderstock());
+            product.setOverstock(getOverstock());
+            getFacade().create(product);
+            StockAdjustment stock = new StockAdjustment();
+            stock.setAdjustedby(getCreatedBy());
+            stock.setAdjustmenttype("Incoming");
+            stock.setDate(LocalDate.now().toString());
+            stock.setItemname(getName());
+            stock.setReason("Opening Stock");
+            stock.setNewquantity(getOpeninStock());
+
+            getStockFacade().create(stock);
+
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("success", "Item " + getName().toUpperCase() + " Created Successfully!!!");
+            String message = "<html>\n"
+                    + "<head>\n"
+                    + "<style>\n"
+                    + "table {\n"
+                    + "  width:100%;\n"
+                    + "}\n"
+                    + "p {\n"
+                    + "  font-family: \"Times New Roman\", Times, Serif;\n"
+                    + "}\n"
+                    + "table, th, td {\n"
+                    + "  border: 1px solid black;\n"
+                    + "  border-collapse: collapse;\n"
+                    + "}\n"
+                    + "th, td {\n"
+                    + "  padding: 15px;\n"
+                    + "  text-align: left;\n"
+                    + "}\n"
+                    + "table#t01 tr:nth-child(even) {\n"
+                    + "  background-color: #eee;\n"
+                    + "}\n"
+                    + "table#t01 tr:nth-child(odd) {\n"
+                    + " background-color: #fff;\n"
+                    + "}\n"
+                    + "table#t01 th {\n"
+                    + "  background-color: black;\n"
+                    + "  color: white;\n"
+                    + "}\n"
+                    + "</style>\n"
+                    + "</head>\n"
+                    + "<body>\n"
+                    + "\n"
+                    + "<h2></h2>\n"
+                    + "\n"
+                    + "<p> Item <strong>" + getName().toUpperCase() + "</strong> added to inventory by <strong>" + getAuthenticatedUser().getLoggedUser().getFirstname().toUpperCase() + ".</strong><br /></p><h3>Pls see details below:</h3>"
+                    + "<br />"
+                    + "<table id=\"t01\">\n"
+                    + "  <tr>\n"
+                    + "    <th>ITEM NAME</th>\n"
+                    + "    <th>CATEGORY</th> \n"
+                    + "    <th>OPENING STOCK</th>\n"
+                    + "    <th>UOM</th>\n"
+                    + "    <th>USES</th>\n"
+                    + "  </tr>\n"
+                    + "  <tr>\n"
+                    + "    <td>" + getName().toUpperCase() + "</td>\n"
+                    + "    <td>" + getCategory().toUpperCase() + "</td>\n"
+                    + "    <td>" + getOpeninStock() + "</td>\n"
+                    + "    <td>" + getUom().toUpperCase() + "</td>\n"
+                    + "    <td>" + getUses().toUpperCase() + "</td>\n"
+                    + "  </tr>\n"
+                    + "</table>\n<br />"
+                    + "<p>Regards,<br />INVENTORY ADMIN</p>"
+                    + "\n"
+                    + "</body>\n"
+                    + "</html>";
+
+            List<String> to = getMailSession().getAccountGroup("admin");
+            //System.out.print("Address: "+to.get(0));
+            getMailSession().sendMail(to, "NEW ITEM ADDED TO INVENTORY", message);
+
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("failure", e.getMessage());
+        }
+        return "addProduct?faces-redirect=true";
+
+    }
 
     /**
      * @return the no
      */
-   
     /**
      * @return the name
      */
@@ -230,27 +296,25 @@ public class ProductController {
     /**
      * @return the admin
      */
-   
-
     /**
      * @return the authentuicatedUser
      */
     public ValidateUser getAuthenticatedUser() {
         return authenticatedUser;
     }
-    
-    public List<NewProduct> getAllStock(){
+
+    public List<NewProduct> getAllStock() {
         return getFacade().findAll();
     }
-    
-    public String deleteProduct(NewProduct product){
+
+    public String deleteProduct(NewProduct product) {
         getFacade().remove(product);
-        return "stockLevel?faces-redirect=true";
+        return "currentStock?faces-redirect=true";
     }
-    
-    public void editStockQuantity(NewProduct product){
+
+    public void editStockQuantity(NewProduct product) {
         getFacade().edit(product);
-        
+
     }
 
     /**
@@ -259,10 +323,19 @@ public class ProductController {
     public StockAdjustmentFacade getStockFacade() {
         return stockFacade;
     }
-    
-    
-    
-  
-    
-    
+
+    /**
+     * @return the accountFacade
+     */
+    public AccountFacade getAccountFacade() {
+        return accountFacade;
+    }
+
+    /**
+     * @return the mailSession
+     */
+    public Mail getMailSession() {
+        return mailSession;
+    }
+
 }

@@ -7,6 +7,8 @@ package com.crownexponent.booktest.web;
 
 import com.crownexponent.booktest.entity.NewProduct;
 import com.crownexponent.booktest.entity.StockAdjustment;
+import com.crownexponent.booktest.service.Mail;
+import com.crownexponent.booktest.service.NewProductFacade;
 import com.crownexponent.booktest.service.StockAdjustmentFacade;
 import com.crownexponent.booktest.util.Message;
 import javax.ejb.EJB;
@@ -38,10 +40,15 @@ public class AdjustStock implements Serializable {
     private List<StockAdjustment> movementHistory;
     @EJB
     private StockAdjustmentFacade facade;
-
-    @Inject
-    private ProductController product;
+    @EJB
+    private NewProductFacade productFacade;
+    //@Inject
+    // private ProductController product;
     private StockAdjustment stockAdjustment;
+    @Inject
+    private ValidateUser authenticatedUser;
+    @EJB
+    private Mail mailSession;
 
     public AdjustStock() {
     }
@@ -61,10 +68,9 @@ public class AdjustStock implements Serializable {
     /**
      * @return the product
      */
-    public ProductController getProduct() {
-        return product;
-    }
-
+    // public ProductController getProduct() {
+    //    return product;
+    // }
     /**
      * @return the stockAdjustment
      */
@@ -87,7 +93,7 @@ public class AdjustStock implements Serializable {
                 }
             }
             LocalDate ldt = LocalDate.now();
-            getStockAdjustment().setAdjustedby(product.getCreatedBy());
+            getStockAdjustment().setAdjustedby(authenticatedUser.getLoggedUser().getEmail());
             getStockAdjustment().setDate(ldt.toString());
             if (typeOfAdjustment.equalsIgnoreCase("outgoing")) {
                 getStockAdjustment().setNewquantity(-1 * getStockAdjustment().getNewquantity());
@@ -100,10 +106,11 @@ public class AdjustStock implements Serializable {
 
                     editStock.setOpeningStock(editStock.getOpeningStock() + getStockAdjustment().getNewquantity());
 
-                    getProduct().editStockQuantity(editStock);
+                    getProductFacade().edit(editStock);
                 }
             }
             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("success", "SUCCESS");
+            sendNotification();
             // new Message().addSuccessMessage("Adjustment posted succesfully");
         } catch (Exception e) {
             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("failure", e.getMessage());
@@ -115,7 +122,7 @@ public class AdjustStock implements Serializable {
      * @return the productList
      */
     public List<NewProduct> getProductList() {
-        productList = product.getAllStock();
+        productList = getProductFacade().findAll();
         return productList;
     }
 
@@ -127,8 +134,94 @@ public class AdjustStock implements Serializable {
     public List<StockAdjustment> viewSingleItem() {
         FacesContext context = FacesContext.getCurrentInstance();
         String param = context.getExternalContext().getRequestParameterMap().get("id");
-        System.out.println(param);
+        //System.out.println(param);
         return getFacade().findByName(param);
     }
 
+    public void sendNotification() {
+        NewProduct product1 = getProductFacade().findByItemName(getStockAdjustment().getItemname());
+        int oldQuantity = product1.getOpeningStock() - getStockAdjustment().getNewquantity();
+        String message = "<html>\n"
+                + "<head>\n"
+                + "<style>\n"
+                + "table {\n"
+                + "  width:100%;\n"
+                + "}\n"
+                + "p {\n"
+                + "  font-family: \"Times New Roman\", Times, Serif;\n"
+                + "}\n"
+                + "table, th, td {\n"
+                + "  border: 1px solid black;\n"
+                + "  border-collapse: collapse;\n"
+                + "}\n"
+                + "th, td {\n"
+                + "  padding: 15px;\n"
+                + "  text-align: left;\n"
+                + "}\n"
+                + "table#t01 tr:nth-child(even) {\n"
+                + "  background-color: #eee;\n"
+                + "}\n"
+                + "table#t01 tr:nth-child(odd) {\n"
+                + " background-color: #fff;\n"
+                + "}\n"
+                + "table#t01 th {\n"
+                + "  background-color: black;\n"
+                + "  color: white;\n"
+                + "}\n"
+                + "</style>\n"
+                + "</head>\n"
+                + "<body>\n"
+                + "\n"
+               
+               
+                + "<p>This is a transaction notification on item <strong>" + getStockAdjustment().getItemname().toUpperCase() + "</strong> carried out by <strong>" + getAuthenticatedUser().getLoggedUser().getFirstname().toUpperCase() + ".</strong><br /></p><h3>Pls see details below:</h3>"
+                + "<br />"
+                + "<table id=\"t01\">\n"
+                + "  <tr>\n"
+                + "    <th>ITEM </th>\n"
+                + "    <th>ADJ. TYPE</th> \n"
+                + "    <th>REASON</th>\n"
+                + "    <th>OLD QTY</th>\n"
+                + "    <th>QTY ADJUSTED</th>\n"
+                + "    <th>BALANCE</th>\n"
+                + "  </tr>\n"
+                + "  <tr>\n"
+                + "    <td>" + getStockAdjustment().getItemname().toUpperCase() + "</td>\n"
+                + "    <td>" + getStockAdjustment().getAdjustmenttype().toUpperCase() + "</td>\n"
+                + "    <td>" + getStockAdjustment().getReason().toUpperCase() + "</td>\n"
+                + "    <td>" + oldQuantity + "</td>\n"
+                + "    <td>" + getStockAdjustment().getNewquantity() + "</td>\n"
+                + "    <td>" + product1.getOpeningStock() + "</td>\n"
+                + "  </tr>\n"
+                + "</table>\n<br />"
+                + "<p>Regards,<br />INVENTORY ADMIN</p>"
+                + "\n"
+                + "</body>\n"
+                + "</html>";
+
+        List<String> to = getMailSession().getAccountGroup("admin");
+        //System.out.print("Address: "+to.get(0));
+        getMailSession().sendMail(to, "Inventory Alert on Item " + getStockAdjustment().getItemname().toUpperCase(), message);
+    }
+
+    /**
+     * @return the authenticatedUser
+     */
+    public ValidateUser getAuthenticatedUser() {
+        return authenticatedUser;
+    }
+
+    /**
+     * @return the productFacade
+     */
+    public NewProductFacade getProductFacade() {
+        return productFacade;
+    }
+
+    /**
+     * @return the mailSession
+     */
+    public Mail getMailSession() {
+        return mailSession;
+    }
 }

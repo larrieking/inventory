@@ -31,6 +31,12 @@ public class NewProductFacade extends AbstractFacade<NewProduct> {
         super(NewProduct.class);
     }
     
-  
+  public NewProduct findByItemName(String itemName){
+         NewProduct aaa = new NewProduct();
+        Query query = em.createNamedQuery("NewProduct.findByItemName");
+        query.setParameter("itemName", itemName );
+        return (NewProduct) query.getSingleResult();
+        
+    }
     
 }

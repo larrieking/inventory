@@ -6,11 +6,13 @@
 package com.crownexponent.booktest.web;
 
 import com.crownexponent.booktest.entity.NewProduct;
+import com.crownexponent.booktest.service.NewProductFacade;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -26,8 +28,8 @@ public class Dashboard implements Serializable {
     /**
      * Creates a new instance of Dashboard
      */
-    @Inject 
-    private AdjustStock stock;
+    @EJB
+    private NewProductFacade productFacade;
     private List<NewProduct> products;
     private List<NewProduct> overstock, understock, optimal;
     private List<NewProduct> levels = new ArrayList<>();
@@ -38,21 +40,21 @@ public class Dashboard implements Serializable {
     /**
      * @return the stock
      */
-    public  AdjustStock getStock() {
-        return stock;
+    public  NewProductFacade getProductFacade() {
+        return productFacade;
     }
 
     /**
      * @return the products
      */
     public List<NewProduct> getProducts() {
-        return getStock().getProductList();
+        return getProductFacade().findAll();
        
     }
     
     
     public int getNoOfItems(){
-        return getStock().getProduct().getFacade().count();
+        return getProductFacade().count();
     }
     
     public List<NewProduct>  getOverStocked(){

@@ -86,7 +86,7 @@ public class EmailSessionBean {
                 getPasswordReset().create(pass);
                 List<String>toAdd = new ArrayList<>();
                 toAdd.add(email.getEmail());
-                getMailSession().sendMail(token, toAdd, "Password Reset for BUPPOWER Inventory", content);
+                getMailSession().sendMail(toAdd, "Password Reset for BUPPOWER Inventory", content);
                 //sendMail(token, email.getEmail(), "Password Reset for BUPPOWER Inventory");
                 FacesContext.getCurrentInstance().getExternalContext().getFlash().put("success", "Password Reset Instructions sent to " + email.getEmail());
             } else if (email != null && reset != null) {
@@ -94,7 +94,7 @@ public class EmailSessionBean {
                 getPasswordReset().edit(pass);
                  List<String>toAdd = new ArrayList<>();
                 toAdd.add(email.getEmail());
-                getMailSession().sendMail(token, toAdd, "Password Reset for BUPPOWER Inventory", content);
+                getMailSession().sendMail(toAdd, "Password Reset for BUPPOWER Inventory", content);
                 //sendMail(token, email.getEmail(), "Password Reset for BUPPOWER Inventory");
                 FacesContext.getCurrentInstance().getExternalContext().getFlash().put("success", "Password Reset Instructions sent to " + email.getEmail());
             } else {

@@ -5,12 +5,15 @@
  */
 package com.crownexponent.booktest.service;
 
+import com.crownexponent.booktest.entity.Account;
 import com.crownexponent.booktest.web.EmailSessionBean;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -31,13 +34,22 @@ public class Mail {
     // "Insert Code > Add Business Method")
      @Resource(lookup = "MyMail")
     private Session mailSession;
+     
+     @EJB
+     private AccountFacade accountFacade;
+     
     
-    public void sendMail(String token, List<String> to, String subject, String content) {
+    public void sendMail( List<String> to, String subject, String content) {
         MimeMessage msg = new MimeMessage(mailSession);
 String[]toAddress = to.toArray(new String[to.size()]);
         try {
             msg.setFrom(new InternetAddress(mailSession.getProperty("mail.from")));
             InternetAddress[] address = new InternetAddress[toAddress.length];
+            int counter = 0;
+            for(String add : toAddress){
+                address[counter] = new InternetAddress(add.trim());
+                counter++;
+            }
             msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject(subject);
             msg.setSentDate(new Date());
@@ -53,6 +65,28 @@ String[]toAddress = to.toArray(new String[to.size()]);
         } catch (MessagingException ex) {
             Logger.getLogger(EmailSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+     public List<String> getAccountGroup(String group){
+        List<String>to = new ArrayList<>();
+      // to = getAccountFacade().findAll().stream().filter(x -> x.getRole().equalsIgnorcase("admin")).collect(Collectors.toList());
+        List<Account> accounts = getAccountFacade().findAll();
+        for(Account account : accounts ){
+            if(account.getRole().getRoleName().equalsIgnoreCase(group)){
+                to.add(account.getEmail());
+            }
+        }    
+    
+
+
+        return to;
+    }
+
+    /**
+     * @return the accountFacade
+     */
+    public AccountFacade getAccountFacade() {
+        return accountFacade;
     }
 
 }
