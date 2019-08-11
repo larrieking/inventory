@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p = "http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <title>BuPower Inventory</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <h:outputStylesheet library="css" name="styles.css"  /> 
+        <h:outputScript library="js" name="myJs.js"></h:outputScript>
+    </h:head>
+    <h:body>
+        <section>
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center"><h:graphicImage value="resources/img/bupowerlogo.png" styleClass="img-fluid img-thumbnail"/><h1>BU Power Limited</h1></div>
+
+            </div>
+
+
+
+            <div class="row" style="padding-top:2%">
+                <div class="col-md-9 text-center" style="padding: 2%" >
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Powerful Inventory Software that is easy to use.</h4>
+                            <h:graphicImage value="resources/img/productfeatures.jpg" styleClass="img-fluid rounded mx-auto d-block"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3" style="padding: 2%">
+                 
+
+                    <div class="card in" id="login">
+                        <div class="card-body">
+                            <div jsf:id="id1" jsf:rendered="#{not empty facesContext.messageList}" class ="container-fluid alert alert-warning alert-dismissible fade show" role="alert">
+                                <h:messages  showDetail="false" showSummary="true"  >
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </h:messages>
+                            </div>
+                            
+                            
+                            <span class="text-primary"> Login here</span>
+                            <h:form id="form1" >
+                                <div class="form-group">
+                                    <h:inputText styleClass="form-control" p:placeholder="username/email" value="#{validateUser.username}" ></h:inputText>
+                                    <h:inputSecret styleClass="form-control" p:placeholder="Password" value="#{validateUser.password}"></h:inputSecret>
+
+                                    <h:commandButton value="Login" styleClass="btn-primary btn-sm form-control" action="#{validateUser.login()}"/>
+                                    <!--<span class="small">Don't have an account?<a href="#signup" data-toggle="collapse" >Signup</a></span>-->
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+            <div class="footer footer-copyright text-center py-3 font-small">
+                &copy; 2019 All rights reserved:<a href="https://codershift.com">Codershift.com</a>
+            </div>
+
+
+
+        </section>
+
+
+    </h:body>
+</html>
+

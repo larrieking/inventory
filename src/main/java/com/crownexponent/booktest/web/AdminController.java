@@ -8,9 +8,10 @@ package com.crownexponent.booktest.web;
 import com.crownexponent.booktest.entity.Account;
 import com.crownexponent.booktest.entity.Role;
 import com.crownexponent.booktest.service.AccountFacade;
+import com.crownexponent.booktest.service.RoleFacade;
 import com.crownexponent.booktest.util.GenerateSHA56;
 import com.crownexponent.booktest.util.Message;
-import com.crownexponent.booktest.util.SendMail;
+
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -23,20 +24,23 @@ import javax.faces.context.FacesContext;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.ArrayList;
+import javax.enterprise.context.RequestScoped;
 /**
  *
  * @author ISSAH OJIVO
  */
 @Named(value = "adminController")
-@SessionScoped
-public class AdminController implements Serializable {
+@RequestScoped
+public class AdminController  {
     
  
 
     private String username, password, firstName, lastName, role;
     
     @EJB
-    private AccountFacade accountFacade;
+    private RoleFacade roleFacade;
+    @EJB
+    private AccountFacade facade;
     /**
      * Creates a new instance of AdminController
      */
@@ -99,37 +103,40 @@ public class AdminController implements Serializable {
         this.lastName = lastName;
     }
     
-    public void createAdmin(){
-        //context =  FacesContext.getCurrentInstance();
-        Role tableRole = new Role();
-        tableRole.setRoleName(getRole());
+    public String createAdmin(){
+        
+        Role tableRole = getRoleFacade().find(getRole());
+        //tableRole.setRoleName(getRole());
+       // tableRole.setDescription(getRole() + " of the Inventory");
+            
         
         Account account = new Account();
         try {
-            account = new Account(getUsername(),new GenerateSHA56().generateSha256(getPassword()), getFirstName(), getLastName());
+            account = new Account(getUsername(),new GenerateSHA56().generateSha256(getPassword()), getFirstName(), getLastName(), tableRole);
+            
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        account.getRole().add(tableRole);
-        tableRole.getAccount().add(account);
+       // account.getRole().add(tableRole);
+        //tableRole.getAccount().add(account);
         try{
-        getAccountFacade().create(account);
+        getFacade().create(account);
         List<String>list = new ArrayList<>();
         list.add(username);
        // new SendMail().sendMail(list, "Account Creation At BUPOWER", "Pls Click here your acct have bn created...", null);
         new Message().addSuccessMessage("Success");
-        reset();
+        
         }
         catch(ConstraintViolationException  e){
             new Message().addFailureMessage(e.getMessage());
         }
         //getRoleFacade().create(role);
-        
+        return "create?faces-redirect=true";
         //System.out.println(getUsername() + getPassword()+getFirstName()+getLastName());
     }
 
-    private AccountFacade getAccountFacade() {
-        return accountFacade;
+    private RoleFacade getRoleFacade() {
+        return roleFacade;
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -146,15 +153,15 @@ public class AdminController implements Serializable {
     public void setRole(String role) {
         this.role = role;
     }
-    
-    public void reset(){
-        setUsername("");
-        setPassword("");
-        setFirstName("");
-        setLastName("");
-        
-                
+
+    /**
+     * @return the facade
+     */
+    public AccountFacade getFacade() {
+        return facade;
     }
+    
+   
     
     
     

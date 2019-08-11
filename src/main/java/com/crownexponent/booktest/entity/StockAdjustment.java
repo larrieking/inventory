@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "StockAdjustment.findAll", query = "SELECT s FROM StockAdjustment s"),
     @NamedQuery(name = "StockAdjustment.findById", query = "SELECT s FROM StockAdjustment s WHERE s.id = :id"),
+     @NamedQuery(name = "StockAdjustment.findByItemname", query = "SELECT s FROM StockAdjustment s WHERE s.itemname = :itemname"),
     @NamedQuery(name = "StockAdjustment.findByReason", query = "SELECT s FROM StockAdjustment s WHERE s.reason = :reason"),
     @NamedQuery(name = "StockAdjustment.findByAdjustmenttype", query = "SELECT s FROM StockAdjustment s WHERE s.adjustmenttype = :adjustmenttype"),
     @NamedQuery(name = "StockAdjustment.findByOldquantity", query = "SELECT s FROM StockAdjustment s WHERE s.oldquantity = :oldquantity"),
@@ -49,7 +50,7 @@ public class StockAdjustment implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(name = "itemname")
+    @Column(name = "itemname", unique = true)
     private String itemname;
     
     @Size(max = 200)
@@ -70,7 +71,7 @@ public class StockAdjustment implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "newquantity")
-    private int newquantity;
+    private Integer newquantity;
     @Size(max = 200)
     @Column(name = "adjustedby")
     private String adjustedby;
@@ -121,11 +122,11 @@ public class StockAdjustment implements Serializable {
         this.oldquantity = oldquantity;
     }
 
-    public int getNewquantity() {
+    public Integer getNewquantity() {
         return newquantity;
     }
 
-    public void setNewquantity(int newquantity) {
+    public void setNewquantity(Integer newquantity) {
         this.newquantity = newquantity;
     }
 

@@ -6,9 +6,11 @@
 package com.crownexponent.booktest.service;
 
 import com.crownexponent.booktest.entity.NewProduct;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,7 @@ public class NewProductFacade extends AbstractFacade<NewProduct> {
     public NewProductFacade() {
         super(NewProduct.class);
     }
+    
+  
     
 }

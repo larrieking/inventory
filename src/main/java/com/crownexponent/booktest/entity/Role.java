@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.HashSet;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,9 +18,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,44 +37,55 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
-    @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id"),
+    @NamedQuery(name = "Role.findByDescription", query = "SELECT r FROM Role r WHERE r.description = :description"),
     @NamedQuery(name = "Role.findByRoleName", query = "SELECT r FROM Role r WHERE r.roleName = :roleName")})
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Basic(optional = false)
+    //@Column(name = "id")
+    //private Integer id;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "role_name")
     private String roleName;
     
-    @ManyToMany(mappedBy = "role", cascade = CascadeType.PERSIST)
-    private Set<Account> account = new HashSet<>();
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "description")
+    private String description;
+    
+   @OneToMany(mappedBy = "role", targetEntity = Account.class)
+   private List<Account> account;
+
+    public List<Account> getAccount() {
+        return account;
+    }
+
+    public void setAccount(List<Account> account) {
+        this.account = account;
+    }
+    
+    
 
     public Role() {
     }
 
-    public Role(Integer id) {
-        this.id = id;
-    }
-
-    public Role(Integer id, String roleName) {
-        this.id = id;
+    public Role(String roleName) {
         this.roleName = roleName;
     }
 
-    public Integer getId() {
-        return id;
+    public Role(String description, String roleName) {
+        this.description = description;
+        this.roleName = roleName;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    
 
     public String getRoleName() {
         return roleName;
@@ -82,41 +97,67 @@ public class Role implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.roleName);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Role)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Role other = (Role) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Role other = (Role) obj;
+        if (!Objects.equals(this.roleName, other.roleName)) {
             return false;
         }
         return true;
     }
 
-    @Override
+    
+
+   
+
+
+    /**
+     * @return the account
+     */
+   
+    /**
+     * @param account the account to set
+     */
+    @Override   
     public String toString() {
-        return "com.crownexponent.booktest.entity.Role[ id=" + id + " ]";
+        return "Role{" + "roleName=" + roleName + ", description=" + description + '}';
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
      * @return the account
      */
-    public Set<Account> getAccount() {
-        return account;
-    }
+    
 
     /**
-     * @param account the account to set
+     * @return the account
      */
-    public void setAccount(Set<Account> account) {
-        this.account = account;
-    }
-    
+   
 }

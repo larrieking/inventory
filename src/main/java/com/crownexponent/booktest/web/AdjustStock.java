@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -27,7 +28,7 @@ import javax.faces.context.FacesContext;
  * @author ISSAH OJIVO
  */
 @Named(value = "adjustStock")
-@SessionScoped
+@RequestScoped
 public class AdjustStock implements Serializable {
 
     /**
@@ -73,26 +74,41 @@ public class AdjustStock implements Serializable {
     }
 
     public String createStokckAdjustment() {
-        String typeOfAdjustment = getStockAdjustment().getAdjustmenttype();
-        LocalDate ldt = LocalDate.now();
-        getStockAdjustment().setAdjustedby(product.getCreatedBy());
-        getStockAdjustment().setDate(ldt.toString());
-        if (typeOfAdjustment.equalsIgnoreCase("negative")) {
-            getStockAdjustment().setNewquantity(-1 * getStockAdjustment().getNewquantity());
-        }
-
-        getFacade().create(stockAdjustment);
-        
-        for (NewProduct editStock : productList) {
-            if (editStock.getItemName().equalsIgnoreCase(getStockAdjustment().getItemname())) {
-
-                editStock.setOpeningStock(editStock.getOpeningStock() + getStockAdjustment().getNewquantity());
-
-                getProduct().editStockQuantity(editStock);
+        try {
+            String typeOfAdjustment = getStockAdjustment().getAdjustmenttype();
+            if (typeOfAdjustment.equalsIgnoreCase("outgoing")) {
+                for (NewProduct editStock : productList) {
+                    if (editStock.getItemName().equalsIgnoreCase(getStockAdjustment().getItemname())) {
+                        if (editStock.getOpeningStock() <= getStockAdjustment().getNewquantity()) {
+                            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("failure", "Item " + editStock.getItemName().toUpperCase() + " is not enough in inventory");
+                            return "adjustStock?faces-redirect=true";
+                        }
+                    }
+                }
             }
+            LocalDate ldt = LocalDate.now();
+            getStockAdjustment().setAdjustedby(product.getCreatedBy());
+            getStockAdjustment().setDate(ldt.toString());
+            if (typeOfAdjustment.equalsIgnoreCase("outgoing")) {
+                getStockAdjustment().setNewquantity(-1 * getStockAdjustment().getNewquantity());
+            }
+
+            getFacade().create(stockAdjustment);
+
+            for (NewProduct editStock : productList) {
+                if (editStock.getItemName().equalsIgnoreCase(getStockAdjustment().getItemname())) {
+
+                    editStock.setOpeningStock(editStock.getOpeningStock() + getStockAdjustment().getNewquantity());
+
+                    getProduct().editStockQuantity(editStock);
+                }
+            }
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("success", "SUCCESS");
+            // new Message().addSuccessMessage("Adjustment posted succesfully");
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().getExternalContext().getFlash().put("failure", e.getMessage());
         }
-       new Message().addSuccessMessage("Adjustment posted succesfully");
-        return "itemMovement";
+        return "adjustStock?faces-redirect=true";
     }
 
     /**
@@ -107,7 +123,12 @@ public class AdjustStock implements Serializable {
         movementHistory = getFacade().findAll();
         return movementHistory;
     }
-    
-    
+
+    public List<StockAdjustment> viewSingleItem() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        String param = context.getExternalContext().getRequestParameterMap().get("id");
+        System.out.println(param);
+        return getFacade().findByName(param);
+    }
 
 }

@@ -7,11 +7,13 @@
    
     <body>
          <ui:composition template="./usertemplate.xhtml">
-       <ui:define name="content">
-                <div class="mx-auto" style="width: 400px;">
-                    
+             <ui:define name="content">
+                <div class="mx-auto">
+                    <h:form>  
                 <div class="card-deck">
-                    <div class="card mb-3" style="max-width: 10em">
+                    <div class="card mb-3">
+                        <h:commandLink  action = "#{dashboard.levelReport}" styleClass="color: black;">
+                            <f:param name="id" value="noOfItems"/>
                     <div class="card-body bg-success text-white">
                         <h1>#{dashboard.noOfItems}</h1>
                         
@@ -19,8 +21,11 @@
                     <div class="card-footer bg-transparent">
                         <span>No Of Items</span>
                     </div>
+                        </h:commandLink>
                 </div>
-                <div class="card mb-3" style="max-width: 10em">
+                <div class="card mb-3" >
+                    <h:commandLink  action = "#{dashboard.levelReport}" styleClass="color: black;">
+                        <f:param name="id" value="understocked"/>
                     <div class="card-body bg-warning text-white">
                         <h1>#{dashboard.underStocked.size()}</h1>
                         
@@ -28,28 +33,24 @@
                     <div class="card-footer bg-transparent">
                         <span>Under Stocked</span>
                     </div>
+                    </h:commandLink>
                 </div>
-                </div>
-                  <div class="card-deck">
-                    <div class="card mb-3" style="max-width: 10em">
+                    
+                      <div class="card mb-3" >
+                        <h:commandLink  action = "#{dashboard.levelReport}" styleClass="color: black;">
+                            <f:param name="id" value="overstock"/>
                     <div class="card-body bg-info text-white">
                         <h1>#{dashboard.overStocked.size()}</h1>
                         
                     </div>
                     <div class="card-footer bg-transparent">
-                        <span>OverStocked</span>
+                        <span>Over Stocked</span>
                     </div>
-                </div>
-                <div class="card mb-3" style="max-width: 10em">
-                    <div class="card-body bg-secondary text-white">
-                        <h1>#{dashboard.oeptimal.size()}</h1>
-                        
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        <span>Optimal Level</span>
-                    </div>
+                        </h:commandLink>
                 </div>
                 </div>
+                  
+                    </h:form>
                 </div>
                
             </ui:define>

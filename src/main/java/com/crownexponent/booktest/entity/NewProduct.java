@@ -36,7 +36,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "NewProduct.findByCreatedBy", query = "SELECT n FROM NewProduct n WHERE n.createdBy = :createdBy"),
     @NamedQuery(name = "NewProduct.findByUses", query = "SELECT n FROM NewProduct n WHERE n.uses = :uses"),
     @NamedQuery(name = "NewProduct.findByUom", query = "SELECT n FROM NewProduct n WHERE n.uom = :uom"),
-    @NamedQuery(name = "NewProduct.findByOpeningStock", query = "SELECT n FROM NewProduct n WHERE n.openingStock = :openingStock")})
+    @NamedQuery(name = "NewProduct.findByOpeningStock", query = "SELECT n FROM NewProduct n WHERE n.openingStock = :openingStock"),
+  @NamedQuery(name = "NewProduct.findByUnderStock", query = "SELECT n FROM NewProduct n WHERE n.understock = :understock"),
+  @NamedQuery(name = "NewProduct.findByOverStock", query = "SELECT n FROM NewProduct n WHERE n.overstock = :overstock"),
+  @NamedQuery(name = "NewProduct.findByOptimal", query = "SELECT n FROM NewProduct n WHERE n.optimal = :optimal"),})
 public class NewProduct implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,15 +48,15 @@ public class NewProduct implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
+   
+   
     @Size(min = 1, max = 100)
     @Column(name = "item_no")
     private String itemNo;
-    @Basic(optional = false)
+    @Basic(optional = true)
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(name = "item_name")
+    @Column(name = "item_name", unique = true)
     private String itemName;
     @Size(max = 100)
     @Column(name = "item_class")
@@ -71,13 +74,49 @@ public class NewProduct implements Serializable {
     private String uses;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "uom")
     private String uom;
     @Basic(optional = false)
     @NotNull
     @Column(name = "opening_stock")
     private int openingStock;
+    
+    @Basic(optional = false)
+    @Column(name = "understock")
+    private int understock;
+    
+    @Basic(optional = false)
+    @Column(name = "overstock")
+    private int overstock;
+    
+    
+    @Basic(optional = false)
+    @Column(name = "optimal")
+    private int optimal;
+
+    public int getUnderstock() {
+        return understock;
+    }
+
+    public void setUnderstock(int understock) {
+        this.understock = understock;
+    }
+
+    public int getOverstock() {
+        return overstock;
+    }
+
+    public void setOverstock(int overstock) {
+        this.overstock = overstock;
+    }
+
+    public int getOptimal() {
+        return optimal;
+    }
+
+    public void setOptimal(int optimal) {
+        this.optimal = optimal;
+    }
 
     public NewProduct() {
     }

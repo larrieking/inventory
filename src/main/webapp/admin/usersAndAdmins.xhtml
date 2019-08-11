@@ -13,54 +13,56 @@
 
             <ui:define name="content">
                 <h:form>
-                            <h:dataTable styleClass="table table-hover" value="#{validateUser.allUsersAndAdmins}" var="all" headerClass="thead-dark">
-                                <h:column>
-                                    <f:facet name="header">
-                                        ID
-                                    </f:facet>
-                                    <h:outputText value="#{all.id}"/>
-                            
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        EMAIL
-                                    </f:facet>
-                                    <h:outputText value="#{all.email}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        FIRSTNAME
-                                    </f:facet>
-                                    <h:outputText value="#{all.firstname}"/>
-                            
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        LASTNAME
-                                    </f:facet>
-                                    <h:outputText value="#{all.lastname}"/>
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        ROLE
-                                    </f:facet>
-                                    <h:outputText value="#{validateUser.getRoleName(all.role)}"/>
-                            
-                                </h:column>
-                                
-                                <h:column>
-                                    <f:facet name="header">
-                                        ACTION
-                                    </f:facet>
-                                    <h:commandLink value="delete" action="#{validateUser.deleteUser(all)}"/>
-                                   
-                            
-                                </h:column>
-                                
-                            </h:dataTable>
-                            </h:form>
+                    <div class="table-responsive">
+                        <h:dataTable styleClass="table table-striped table-bordered" p:id="example" value="#{validateUser.allUsersAndAdmins}" var="all" headerClass="thead-dark">
+
+                            <h:column>
+                                <f:facet name="header">
+                                    EMAIL
+                                </f:facet>
+                                <h:outputText value="#{all.email}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    FIRSTNAME
+                                </f:facet>
+                                <h:outputText value="#{all.firstname}"/>
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    LASTNAME
+                                </f:facet>
+                                <h:outputText value="#{all.lastname}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    ROLE
+                                </f:facet>
+                                <h:outputText value="#{validateUser.getRoleName(all.role)}"/>
+
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    ACTION
+                                </f:facet>
+                                <h:commandLink value="delete" action="#{validateUser.deleteUser(all)}"/>
+
+
+                            </h:column>
+
+                        </h:dataTable>
+                    </div>
+                    <h:outputScript target="head">
+                        $(document).ready(function(){
+                        $('#example').DataTable();
+                        });
+                    </h:outputScript>
+                </h:form>
+
             </ui:define>
 
         </ui:composition>

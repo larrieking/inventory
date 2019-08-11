@@ -24,6 +24,7 @@ public class Message {
     
     public void addSuccessMessage(String msg){
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null));
+      //  context.getExternalContext().getFlash().setKeepMessages(true);
     }
     
     public void addFailureMessage(String msg){

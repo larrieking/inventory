@@ -11,6 +11,8 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 /**
@@ -28,6 +30,7 @@ public class Dashboard implements Serializable {
     private AdjustStock stock;
     private List<NewProduct> products;
     private List<NewProduct> overstock, understock, optimal;
+    private List<NewProduct> levels = new ArrayList<>();
     
     public Dashboard() {
     }
@@ -56,7 +59,7 @@ public class Dashboard implements Serializable {
         products = getProducts();
         overstock = new ArrayList<>();
        for(NewProduct p : products )
-           if(p.getOpeningStock() > 20)
+           if(p.getOpeningStock() >= p.getOverstock())
                overstock.add(p);
        return overstock;
     }
@@ -65,7 +68,7 @@ public class Dashboard implements Serializable {
         products = getProducts();
         understock = new ArrayList<>();
        for(NewProduct p : products )
-           if(p.getOpeningStock() < 5)
+           if(p.getOpeningStock() <= p.getUnderstock())
                understock.add(p);
        return understock;
     }
@@ -74,8 +77,60 @@ public class Dashboard implements Serializable {
         products = getProducts();
         optimal = new ArrayList<>();
        for(NewProduct p : products )
-           if(p.getOpeningStock() == 20)
+           if(p.getOpeningStock() == p.getOptimal())
                optimal.add(p);
        return optimal;
     }
+     
+     
+
+    /**
+     * @return the levelReport
+     */
+    public String levelReport() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        String data = fc.getExternalContext().getRequestParameterMap().get("id");
+       
+        if(data.equalsIgnoreCase("noofitems"))
+            levels = getProducts();
+        else if (data.equalsIgnoreCase("overstock"))
+            levels = getOverStocked();
+           
+         else if (data.equalsIgnoreCase("underStocked"))
+            levels = getUnderStocked();
+        else if (data.equalsIgnoreCase("optimal"))
+            levels = getOeptimal();
+        
+        return "stockLevel?faces-redirect=true";
+    }
+
+    /**
+     * @param params the params to set
+     */
+    
+
+    /**
+     * @return the levels
+     */
+    public List<NewProduct> getLevels() {
+        return levels;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    /**
+     * @param levelReport the levelReport to set
+     */
+    
+     
+     
+     
 }

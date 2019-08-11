@@ -12,38 +12,47 @@
         <ui:composition template="./adminTemplate.xhtml">
 
             <ui:define name="content">
-                 <div jsf:id="id1" jsf:rendered="#{not empty facesContext.messageList}" class ="alert alert-warning alert-dismissible fade show" role="alert">
-                                <h:messages  showDetail="false" showSummary="true" errorClass="">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </h:messages>
-                            </div>
 
 
-                            <h:form id="form1" >
-                                <div class="form-group">
-                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Item No" value="#{productController.no}" >
-                                    
-                                    </h:inputText>
-                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Item Name" value="#{productController.name}"></h:inputText>
-                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Item Class" value="#{productController.category}" ></h:inputText>
-                                    <h:inputText p:required="true" styleClass="form-control" p:id="datepicker" p:placeholder="Date" value="#{productController.date}">
-                                   
-                                    </h:inputText>
-                                    <h:outputScript>$( function() {
-    $( "#datepicker" ).datepicker();
-  } );</h:outputScript>
-                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Created By" value="#{productController.createdBy}" p:disabled="" ></h:inputText>
-                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="Uses" value="#{productController.uses}"></h:inputText>
-                                    <h:inputText p:required="true" styleClass="form-control" p:placeholder="UOM" value="#{productController.uom}" ></h:inputText>
-                                    <h:inputText p:required="true" p:type="number" styleClass="form-control" p:placeholder="Opening Stock" value="#{productController.openinStock}"></h:inputText>
 
+                <h:form id="form1" >
+                    <div class="form-group">
 
-                                    <h:commandButton value="Create" styleClass="btn-primary btn-sm form-control" action="#{productController.createProduct()}"/>
-                                    <!--<span class="small">Don't have an account?<a href="#signup" data-toggle="collapse" >Signup</a></span>-->
-                                </div>
-                            </h:form>
+                        <div jsf:id="id2" jsf:rendered="#{not empty flash['failure']}"   class ="alert alert-dismissible fade show alert alert-danger " role="alert">
+                            <h:outputLabel  value="#{flash['failure']}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h:outputLabel>
+                        </div>
+                        <div jsf:id="id1" jsf:rendered="#{not empty flash['success']}"  class ="alert alert-dismissible fade show alert alert-success" role="alert">
+                            <h:outputLabel  value="#{flash['success']}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h:outputLabel>
+                        </div> 
+
+                        <h:inputText p:required="true" styleClass="form-control" p:placeholder="Item Name" value="#{productController.name}"></h:inputText>
+                        <h:inputText p:required="true" styleClass="form-control" p:placeholder="Item Class" value="#{productController.category}" ></h:inputText>
+                        <h:inputText p:required="true" styleClass="form-control" p:id="datepicker" p:placeholder="Date" value="#{productController.date}" p:disabled="">
+
+                        </h:inputText>
+                        <h:outputScript>$( function() {
+                            $( "#datepicker" ).datepicker();
+                            } );</h:outputScript>
+                        <h:inputText p:required="true" styleClass="form-control" p:placeholder="Created By" value="#{productController.createdBy}" p:disabled="" ></h:inputText>
+                        <h:inputText p:required="true" styleClass="form-control" p:placeholder="Uses" value="#{productController.uses}"></h:inputText>
+                        <h:inputText p:required="true" styleClass="form-control" p:placeholder="UOM" value="#{productController.uom}" ></h:inputText>
+                        <h:inputText p:required="true" p:min ="0" p:step ="1" p:type="number" styleClass="form-control" p:placeholder="Opening Stock" value="#{productController.openinStock}"></h:inputText>
+                        <h:inputText p:min ="0" p:step ="1" p:type="number" p:required="true" styleClass="form-control" p:placeholder="Understock Level" value="#{productController.understock}" ></h:inputText>
+                        <h:inputText p:min ="0" p:step ="1"  p:type="number" p:required="true" styleClass="form-control" p:placeholder="Overstock Level" value="#{productController.overstock}"></h:inputText>
+                        <h:inputText p:min ="0" p:step ="1"   p:type="number" p:required="true" styleClass="form-control" p:placeholder="Reorder Quantity" value="#{productController.optimal}" ></h:inputText>
+
+                        <h:commandButton value="Create" styleClass="btn-primary btn-sm form-control" action="#{productController.createProduct()}"/>
+                        <!--<span class="small">Don't have an account?<a href="#signup" data-toggle="collapse" >Signup</a></span>-->
+                    </div>
+                </h:form>
             </ui:define>
 
         </ui:composition>

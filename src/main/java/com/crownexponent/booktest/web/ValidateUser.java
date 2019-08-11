@@ -81,9 +81,14 @@ public class ValidateUser implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
         try {
+            if(request.getUserPrincipal()!=null){
+                request.logout();
+            }
+            
             request.login(username, password);
-            for(Role role : getLoggedUser().getRole()){
-                if(role.getRoleName().equalsIgnoreCase("User")){
+            
+           
+                if(getLoggedUser().getRole().getRoleName().equalsIgnoreCase("User")){
                      setAdmin(false);
                      return "user/home?faces-redirect=true";
                 }
@@ -93,7 +98,7 @@ public class ValidateUser implements Serializable {
                     setAdmin(true);
                     return "admin/home?faces-redirect=true";
                 }
-            }
+            
         } catch (ServletException ex) {
            // Logger.getLogger(ValidateUser.class.getName()).log(Level.SEVERE, null, ex);
            context.addMessage(null,new FacesMessage("Login error"));
@@ -132,15 +137,15 @@ public class ValidateUser implements Serializable {
          
      }
      
-     public String getRoleName(Set<Role>role){
+     public String getRoleName(Role role){
          String outcome = null;
-         for(Role rol : role){
-             if(rol.getRoleName().equalsIgnoreCase("User"))
+       
+             if(role.getRoleName().equalsIgnoreCase("User"))
                 outcome = "User";
-             else if (rol.getRoleName().equalsIgnoreCase("Admin"))
+             else if (role.getRoleName().equalsIgnoreCase("Admin"))
                  outcome = "Admin";
                      
-         }
+         
          
          return outcome;
      }

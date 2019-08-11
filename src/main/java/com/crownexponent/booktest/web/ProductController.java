@@ -6,31 +6,66 @@
 package com.crownexponent.booktest.web;
 
 import com.crownexponent.booktest.entity.NewProduct;
+import com.crownexponent.booktest.entity.StockAdjustment;
 import com.crownexponent.booktest.service.NewProductFacade;
+import com.crownexponent.booktest.service.StockAdjustmentFacade;
+import com.crownexponent.booktest.util.Message;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import java.util.List;
-
+import javax.enterprise.context.RequestScoped;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 /**
  *
  * @author ISSAH OJIVO
  */
 @Named(value = "productController")
-@SessionScoped
-public class ProductController implements Serializable {
+@RequestScoped
+public class ProductController {
 
     /**
      * Creates a new instance of ProductController
      */
    private String no, name, category, createdBy, date, uses, uom;
-   private int openinStock;
+   private Integer understock, overstock, optimal;
+
+    public Integer getUnderstock() {
+        return understock;
+    }
+
+    public void setUnderstock(Integer understock) {
+        this.understock = understock;
+    }
+
+    public Integer getOverstock() {
+        return overstock;
+    }
+
+    public void setOverstock(Integer overstock) {
+        this.overstock = overstock;
+    }
+
+    public Integer getOptimal() {
+        return optimal;
+    }
+
+    public void setOptimal(Integer optimal) {
+        this.optimal = optimal;
+    }
+   private Integer openinStock;
 
     
     @EJB
     private NewProductFacade facade ;
+    @EJB
+    private StockAdjustmentFacade stockFacade;
     @Inject
     private ValidateUser authenticatedUser;
     
@@ -41,7 +76,8 @@ public class ProductController implements Serializable {
         return facade;
     }
      
-     public String createProduct(){
+     public String  createProduct(){
+         try{
          NewProduct product = new NewProduct();
          product.setItemName(getName());
          product.setItemClass(getCategory());
@@ -51,9 +87,27 @@ public class ProductController implements Serializable {
          product.setUses(getUses());
          product.setItemNo(getNo());
          product.setCreatedBy(getCreatedBy());
+         product.setOptimal(getOptimal());
+         product.setUnderstock(getUnderstock());
+         product.setOverstock(getOverstock());
          getFacade().create(product);
-         reset();
-         return null;
+         StockAdjustment stock = new StockAdjustment();
+         stock.setAdjustedby(getCreatedBy());
+         stock.setAdjustmenttype("Incoming");
+         stock.setDate(LocalDate.now().toString());
+         stock.setItemname(getName());
+         stock.setReason("Opening Stock");
+         stock.setNewquantity(getOpeninStock());
+         
+         getStockFacade().create(stock);
+         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("success", "Item "+getName().toUpperCase()+" Created Successfully!!!");
+         }
+         
+         catch(Exception e){
+           FacesContext.getCurrentInstance().getExternalContext().getFlash().put("failure", e.getMessage());
+         }
+         return "addProduct?faces-redirect=true";
+       
          
      }
 
@@ -107,7 +161,7 @@ public class ProductController implements Serializable {
      * @return the date
      */
     public String getDate() {
-        return date;
+        return LocalDateTime.now().toString();
     }
 
     /**
@@ -148,14 +202,14 @@ public class ProductController implements Serializable {
     /**
      * @return the openinStock
      */
-    public int getOpeninStock() {
+    public Integer getOpeninStock() {
         return openinStock;
     }
 
     /**
      * @param openinStock the openinStock to set
      */
-    public void setOpeninStock(int openinStock) {
+    public void setOpeninStock(Integer openinStock) {
         this.openinStock = openinStock;
     }
 
@@ -191,24 +245,24 @@ public class ProductController implements Serializable {
     
     public String deleteProduct(NewProduct product){
         getFacade().remove(product);
-        return null;
+        return "stockLevel?faces-redirect=true";
     }
     
     public void editStockQuantity(NewProduct product){
         getFacade().edit(product);
         
     }
-    
-    
-    public void reset(){
-        setNo("");
-        setName("");
-        setCategory("");
-        setCreatedBy("");
-        setDate("");
-        setUses("");
-        setUom("");
+
+    /**
+     * @return the stockFacade
+     */
+    public StockAdjustmentFacade getStockFacade() {
+        return stockFacade;
     }
+    
+    
+    
+  
     
     
 }

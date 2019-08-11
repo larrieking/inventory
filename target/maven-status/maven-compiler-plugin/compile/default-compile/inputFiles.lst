@@ -1,9 +1,12 @@
+C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\ItemMovement.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\AdminController.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\util\Message.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\util\SendMail.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\util\GenerateSHA56.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\RoleFacade.java
+C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\util\Mail.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\entity\StockAdjustment.java
+C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\PasswordResetFacade.java
+C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\Dashboard.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\AbstractFacade.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\entity\Account.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\NewProductFacade.java
@@ -11,7 +14,11 @@ C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crown
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\AdjustStock.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\ValidateUser.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\StockAdjustmentFacade.java
+C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\util\Reset.java
+C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\EmailSessionBean.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\AccountFacade.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\ProductController.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\entity\Role.java
+C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\NewPassword.java
 C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\UserController.java
+C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\entity\PasswordReset.java

@@ -6,9 +6,11 @@
 package com.crownexponent.booktest.service;
 
 import com.crownexponent.booktest.entity.StockAdjustment;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,12 @@ public class StockAdjustmentFacade extends AbstractFacade<StockAdjustment> {
         super(StockAdjustment.class);
     }
     
+    
+     public List<StockAdjustment> findByName(String name){
+        //StockAdjustment stock = new StockAdjustment();
+        Query query = em.createNamedQuery("StockAdjustment.findByItemname");
+        query.setParameter("itemname", name);
+       return query.getResultList();
+        
+    }
 }

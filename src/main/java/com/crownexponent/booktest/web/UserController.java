@@ -113,17 +113,18 @@ public class UserController implements Serializable {
     
     
     public void create_user(){
-        Role role = new Role();
-        role.setRoleName("user");
+             Role tableRole = getRoleFacade().find("ser");
+
+       // role.setRoleName("user");
         
         Account account = new Account();
         try {
-            account = new Account(getUsername(),new GenerateSHA56().generateSha256(getPassword()), getFirstname(), getLastname());
+            account = new Account(getUsername(),new GenerateSHA56().generateSha256(getPassword()), getFirstname(), getLastname(), tableRole);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        account.getRole().add(role);
-        role.getAccount().add(account);
+        //account.getRole().add(role);
+        //role.getAccount().add(account);
         
         getAccountFacade().create(account);
         //getRoleFacade().create(role);
