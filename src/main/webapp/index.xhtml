@@ -74,24 +74,7 @@
                                 </div>
                             </h:form>
                             <hr />
-                            <span class="text-primary"> sign up</span>
-                             <h:form id="form2" >
-                                <div class="form-group">
-                                    <h:inputText p:type="email" p:required="true"  styleClass="form-control" p:placeholder="email" value="#{adminController.username}" ></h:inputText>
-                                    <h:inputSecret p:required="true"  styleClass="form-control" p:placeholder="Password" value="#{adminController.password}"></h:inputSecret>
-                                    <h:inputText p:required="true"  styleClass="form-control" p:placeholder="firstname" value="#{adminController.firstName}" ></h:inputText>
-                                    <h:inputText p:required="true"  styleClass="form-control" p:placeholder="lastname" value="#{adminController.lastName}"></h:inputText>
-                                    <h:selectOneMenu p:required="true"  styleClass="form-control" value="#{adminController.role}">
-                                        <f:selectItem itemValue="null" itemLabel="---------Select Group---------"/>
-                                        <f:selectItem itemValue="user" itemLabel="User"/>
-                                        <f:selectItem itemValue="admin" itemLabel="Admin"/>
-                                    </h:selectOneMenu>
-
-
-                                    <h:commandButton value="Create" styleClass="btn-primary btn-sm form-control" action="#{adminController.createAdmin()}"/>
-                                    <!--<span class="small">Don't have an account?<a href="#signup" data-toggle="collapse" >Signup</a></span>-->
-                                </div>
-                            </h:form>
+                            
                         </div>
                     </div>
                     
