@@ -1,3 +1,4 @@
+com\crownexponent\booktest\entity\ProcurementMemo.class
 com\crownexponent\booktest\util\Message.class
 com\crownexponent\booktest\service\AccountFacade.class
 com\crownexponent\booktest\service\RoleFacade.class
@@ -6,15 +7,19 @@ com\crownexponent\booktest\service\StockAdjustmentFacade.class
 com\crownexponent\booktest\web\AdjustStock.class
 com\crownexponent\booktest\web\AdminController.class
 com\crownexponent\booktest\web\Dashboard.class
+com\crownexponent\booktest\entity\ProcurementMemo_.class
 com\crownexponent\booktest\service\PasswordResetFacade.class
 com\crownexponent\booktest\util\GenerateSHA56.class
 com\crownexponent\booktest\entity\Account_.class
 com\crownexponent\booktest\service\Mail.class
+com\crownexponent\booktest\web\ProcurementController.class
 com\crownexponent\booktest\entity\Role_.class
 com\crownexponent\booktest\entity\Role.class
 com\crownexponent\booktest\service\NewProductFacade.class
 com\crownexponent\booktest\web\ValidateUser.class
+com\crownexponent\booktest\entity\AbstractFacade.class
 com\crownexponent\booktest\entity\StockAdjustment_.class
+com\crownexponent\booktest\service\ProcurementMemoFacade.class
 com\crownexponent\booktest\web\ItemMovement.class
 com\crownexponent\booktest\web\NewPassword.class
 com\crownexponent\booktest\web\UserController.class
@@ -26,4 +31,5 @@ com\crownexponent\booktest\service\AbstractFacade.class
 com\crownexponent\booktest\entity\NewProduct_.class
 com\crownexponent\booktest\entity\Account.class
 com\crownexponent\booktest\web\ProductController.class
+com\crownexponent\booktest\web\EditProcurement.class
 com\crownexponent\booktest\web\EmailSessionBean.class

@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="content">
+                <div>
+                 <div jsf:id="id22" jsf:rendered="#{not empty flash['failure']}"   class ="alert alert-dismissible fade show alert alert-danger " role="alert">
+                            <h:outputLabel  value="#{flash['failure']}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h:outputLabel>
+                        </div>
+                        <div jsf:id="id11" jsf:rendered="#{not empty flash['success']}"  class ="alert alert-dismissible fade show alert alert-success" role="alert">
+                            <h:outputLabel  value="#{flash['success']}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h:outputLabel>
+                        </div>
+                </div>
+                <div class="table-responsive">
+                    <h:dataTable styleClass="table table-striped table-bordered" id="example" value="#{procurementController.findAll(editMemo)}" var="product" headerClass="thead-dark">
+                        <h:column>
+                            <f:facet name="header">
+                                Serial No
+                            </f:facet>
+                            <h:outputText value="#{product.serialNo}"/>
+
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                Item
+                            </f:facet>
+                            <a>
+                                <h:outputText value="#{product.item}"/>
+                            </a>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Price
+                            </f:facet>
+                            <h:outputText value="#{product.price}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                Stock At Hand
+                            </f:facet>
+                            <h:outputText value="#{product.stockAtHand}"/>
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                This Order
+                            </f:facet>
+                            <h:outputText value="#{product.thisOder}"/>
+
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                Under Stock Level
+                            </f:facet>
+                            <h:outputText value="#{product.underStockLevel}"/>
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Vendor
+                            </f:facet>
+                            <h:outputText value="#{product.vendor}"/>
+
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Action
+                            </f:facet>
+                            <h:form>
+                                <strong><h:commandLink action="#{procurementController.delete(product)}" value="Delete"><i class="fa fa-times white"></i> </h:commandLink></strong>&nbsp;
+                                <strong> <h:commandLink action="#{editProcurement.prepareEdit(product)}" value="Edit"><i class="fa fa-edit white"></i></h:commandLink></strong>
+                            </h:form>
+                        </h:column>
+
+
+                    </h:dataTable>
+                </div>
+                <h:outputScript target="head">
+                    $(document).ready(function(){
+                    $('#example').DataTable();
+                    });
+                </h:outputScript>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

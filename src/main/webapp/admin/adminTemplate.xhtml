@@ -83,6 +83,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a href="currentStock.xhtml" class="dropdown-item">Current Stock</a>
                                             <a href="itemMovement.xhtml" class="dropdown-item">Movement History</a>
+                                            <a href="viewProcurementMemo.xhtml" class="dropdown-item">Procurement Memo</a>
                                               
                                         </div>
                                     </div>
@@ -100,7 +101,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a href="currentStock.xhtml" class="dropdown-item">Current Stock</a>
                                              <a href="adjustStock.xhtml" class="dropdown-item">Adjust Stock</a>
-                                             <a href="settings.xhtml" class="dropdown-item">Reorder Stock</a>
+                                             <a href="procurement.xhtml" class="dropdown-item">Future Procurement Memo</a>
                                               <a href="addProduct.xhtml" class="dropdown-item">New Product</a>
                                         </div>
                                     </div>
@@ -112,11 +113,11 @@
                 </div>
             </div>
         </section>
-        <div class="card">
+        <div class="card" jsf:id="id1" jsf:rendered="#{!validateUser.admin}">
             <div class="card-body text-center">
                 
           
-        <div jsf:id="id1" jsf:rendered="#{!validateUser.admin}"  class ="alert alert-dismissible fade show alert alert-success" role="alert">
+        <div   class ="alert alert-dismissible fade show alert alert-success" role="alert">
                                     <h:outputLabel  value="Only Administrators are allowed to access this resource">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>

@@ -27,3 +27,8 @@ section{
 tr{
     font-size: 12px;
 }
+
+.editMemo{
+    font-size: 20px; 
+    text-align: right;
+}

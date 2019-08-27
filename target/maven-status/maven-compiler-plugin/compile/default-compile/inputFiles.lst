@@ -1,24 +1,29 @@
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\ItemMovement.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\AdminController.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\util\Message.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\util\GenerateSHA56.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\RoleFacade.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\Mail.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\entity\StockAdjustment.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\PasswordResetFacade.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\Dashboard.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\AbstractFacade.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\entity\Account.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\NewProductFacade.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\entity\NewProduct.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\AdjustStock.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\ValidateUser.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\StockAdjustmentFacade.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\util\Reset.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\EmailSessionBean.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\service\AccountFacade.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\ProductController.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\entity\Role.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\NewPassword.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\web\UserController.java
-C:\Users\ISSAH OJIVO\Documents\NetBeansProjects\BookTest\src\main\java\com\crownexponent\booktest\entity\PasswordReset.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\entity\NewProduct.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\NewPassword.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\service\RoleFacade.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\ProductController.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\UserController.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\Dashboard.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\AdjustStock.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\service\AbstractFacade.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\service\StockAdjustmentFacade.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\util\Message.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\service\AccountFacade.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\entity\StockAdjustment.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\service\PasswordResetFacade.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\ItemMovement.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\entity\Role.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\ValidateUser.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\EmailSessionBean.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\entity\ProcurementMemo.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\entity\AbstractFacade.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\ProcurementController.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\util\GenerateSHA56.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\entity\PasswordReset.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\EditProcurement.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\web\AdminController.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\service\NewProductFacade.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\service\ProcurementMemoFacade.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\entity\Account.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\service\Mail.java
+C:\Users\golan\Documents\NetBeansProjects\inventory\src\main\java\com\crownexponent\booktest\util\Reset.java

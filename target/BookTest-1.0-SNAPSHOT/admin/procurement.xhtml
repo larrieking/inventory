@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="content">
+
+
+                <h:form >
+
+                    <div class="form-group">
+                        <div jsf:id="id2" jsf:rendered="#{not empty flash['failure']}"   class ="alert alert-dismissible fade show alert alert-danger " role="alert">
+                            <h:outputLabel  value="#{flash['failure']}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h:outputLabel>
+                        </div>
+                        <div jsf:id="id1" jsf:rendered="#{not empty flash['success']}"  class ="alert alert-dismissible fade show alert alert-success" role="alert">
+                            <h:outputLabel  value="#{flash['success']}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h:outputLabel>
+                        </div>
+                       
+                        <h:inputText p:required="true" p:type ="text"  p:placeholder ="Item Name" value="#{procurementController.memo.item}" styleClass="form-control" />
+                        <h:inputText p:required="true" p:type ="number" p:min="0" p:step="1" p:placeholder ="Stock At Hand" value="#{procurementController.memo.stockAtHand}" styleClass="form-control" />
+                        <h:inputText p:required="true" p:type ="number" p:min="0" p:step="1" p:placeholder ="Ideal Quantity" value="#{procurementController.memo.idealQty}" styleClass="form-control" />
+                        <h:inputText p:required="true" p:type ="number" p:min="0" p:step="1" p:placeholder ="price" value="#{procurementController.memo.price}" styleClass="form-control" />
+                        <h:inputText p:required="true" p:type ="number" p:min="0" p:step="1" p:placeholder ="This Order" value="#{procurementController.memo.thisOder}" styleClass="form-control" />
+                        <h:inputText p:required="true" p:type ="number" p:min="0" p:step="1" p:placeholder ="Understock Level" value="#{procurementController.memo.underStockLevel}" styleClass="form-control" />
+                        <h:inputText p:required="true" p:type ="text"  p:placeholder ="Vendor" value="#{procurementController.memo.vendor}" styleClass="form-control" />
+                        <h:commandButton value="Create Procurement Memo" styleClass="form-control btn-primary btn-sm" action="#{procurementController.create()}">
+
+
+                        </h:commandButton>                
+                    </div>
+
+                </h:form>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
