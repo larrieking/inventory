@@ -85,7 +85,7 @@ public class AdjustStock implements Serializable {
             if (typeOfAdjustment.equalsIgnoreCase("outgoing")) {
                 for (NewProduct editStock : productList) {
                     if (editStock.getItemName().equalsIgnoreCase(getStockAdjustment().getItemname())) {
-                        if (editStock.getOpeningStock() <= getStockAdjustment().getNewquantity()) {
+                        if (editStock.getOpeningStock() < getStockAdjustment().getNewquantity()) {
                             FacesContext.getCurrentInstance().getExternalContext().getFlash().put("failure", "Item " + editStock.getItemName().toUpperCase() + " is not enough in inventory");
                             return "adjustStock?faces-redirect=true";
                         }
